@@ -1,10 +1,6 @@
 import { sequelize } from '../../config/db';
 import { DataTypes, Model, Optional } from 'sequelize';
 
-type UserColumns = {
-  id: string;
-  name: string;
-};
 
 type UserAttributes = {
   id: string;
@@ -48,4 +44,4 @@ User.init({
 
 
 export { User };
-export type { UserColumns };
+export type { UserCreationAttributes, UserAttributes };

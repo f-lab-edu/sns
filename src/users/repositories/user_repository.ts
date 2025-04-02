@@ -1,6 +1,6 @@
-import { User, UserColumns } from '../models/user'
+import { User, UserCreationAttributes } from '../models/user'
 
-async function addUser({ id, name }: UserColumns) {
+async function addUser({ id, name }: UserCreationAttributes) {
   return User.create({
     id,
     name,
@@ -14,6 +14,6 @@ async function getUser(id: string) {
 export default { addUser, getUser } as UserRepository;
 
 export interface UserRepository {
-  addUser: (user: UserColumns) => Promise<InstanceType<typeof User>>;
+  addUser: (user: UserCreationAttributes) => Promise<InstanceType<typeof User>>;
   getUser: (id: string) => Promise<InstanceType<typeof User> | null>;
 }
