@@ -1,4 +1,4 @@
-import { User, UserColumns } from '../../model/user'
+import { User, UserColumns } from '../models/user'
 
 
 function addUser({ id, name }: UserColumns) {

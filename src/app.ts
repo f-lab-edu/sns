@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import express from 'express';
-import { getUser, addUser } from './model/user';
+import { getUser, addUser } from './users/models/user';
 import {
   getPost,
   addPost,
