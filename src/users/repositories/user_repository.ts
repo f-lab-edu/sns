@@ -1,7 +1,6 @@
 import { User, UserColumns } from '../models/user'
 
-
-function addUser({ id, name }: UserColumns) {
+async function addUser({ id, name }: UserColumns) {
   return User.create({
     id,
     name,
@@ -12,4 +11,9 @@ async function getUser(id: string) {
   return User.findByPk(id);
 }
 
-export { addUser, getUser };
+export default { addUser, getUser } as UserRepository;
+
+export interface UserRepository {
+  addUser: (user: UserColumns) => Promise<InstanceType<typeof User>>;
+  getUser: (id: string) => Promise<InstanceType<typeof User> | null>;
+}
