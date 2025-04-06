@@ -20,4 +20,14 @@ export default [
       'prettier/prettier': 'error',
     },
   },
+  {
+    overrides: [
+      {
+        files: ['tests/**/*'],
+        env: {
+          jest: true,
+        },
+      },
+    ],
+  },
 ];
