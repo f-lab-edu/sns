@@ -1,10 +1,10 @@
-import { sequelize } from '../config/db';
+import { sequelize } from '../../config/db';
 import { DataTypes } from 'sequelize';
 
 // follower: 나를 팔로우 하는 사람
 // follwing: 내가 팔로잉 하는 사람
 
-type FollowColumns = {
+type FollowAttributes = {
   id: number;
   userId: string; // 팔로우 하는 사람
   targetId: string; // 팔로우 당하는 사람
@@ -27,7 +27,7 @@ const Follow = sequelize.define('Follow', {
   },
 });
 
-function addFollow({ userId, targetId }: FollowColumns) {
+function addFollow({ userId, targetId }: FollowAttributes) {
   return Follow.create({ userId, targetId });
 }
 
