@@ -2,18 +2,18 @@
 
 import express from 'express';
 import { getUser, addUser } from './users/models/user';
-import {
-  getPost,
-  addPost,
-  getAllPosts,
-  getAllPostsByUserId,
-} from './post/models/post';
+import { getPost } from './post/models/post';
 import {
   addFollow,
   getFollowers,
   getFollowings,
 } from './follows/models/follow';
 import { connectDB, syncDB } from './config/db';
+import {
+  addPost,
+  getAllPosts,
+  getAllPostsByUserId,
+} from './post/repositories/post_repository';
 
 const app = express();
 const port = 3333;
