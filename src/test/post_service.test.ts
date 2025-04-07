@@ -37,4 +37,19 @@ describe('PostService', () => {
     expect(result!.title).toBe(title);
     expect(emptyResult).toBeNull();
   });
+
+  test('유저ID를 받아 해당 유저가 작성한 모든 글을 조회한다', async () => {
+    // given
+    const userId = 'user';
+    PostRepository.addPost({ title: 'title1', content: 'content1', userId });
+    PostRepository.addPost({ title: 'title2', content: 'content2', userId });
+    PostRepository.addPost({ title: 'title3', content: 'content3', userId });
+
+    // when
+    const result = await PostService.getAllPostsByUser(userId);
+    const emptyResult = await PostService.getAllPostsByUser('noUser');
+    expect(result).not.toBeNull();
+    expect(result[0].title).toBe('title1');
+    expect(emptyResult).toEqual([]);
+  });
 });

@@ -9,7 +9,12 @@ async function getPost(id: number) {
   return PostRepository.getPost(id);
 }
 
+async function getAllPostsByUser(userId: string) {
+  return PostRepository.getAllPostsByUser(userId);
+}
+
 export default {
   addPost,
   getPost,
+  getAllPostsByUser,
 };
