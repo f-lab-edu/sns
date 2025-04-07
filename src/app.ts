@@ -8,7 +8,11 @@ import {
   getAllPosts,
   getAllPostsByUserId,
 } from './model/post';
-import { addFollow, getFollowers, getFollowings } from './model/follow';
+import {
+  addFollow,
+  getFollowers,
+  getFollowings,
+} from './follows/models/follow';
 import { connectDB, syncDB } from './config/db';
 
 const app = express();
@@ -97,11 +101,4 @@ app.get('/newsfeed/:userId', async (req, res) => {
 async function initDB() {
   await connectDB();
   await syncDB(); // 개발환경에서만 사용
-  addTestData();
-}
-
-function addTestData() {
-  addUser({ id: 'a', name: 'a' });
-  addUser({ id: 'b', name: 'b' });
-  addUser({ id: 'c', name: 'c' });
 }

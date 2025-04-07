@@ -4,7 +4,6 @@ import { initDB } from '../config/db';
 import { beforeAll } from '@jest/globals';
 
 describe('UserService', () => {
-  //TODO service test write
   beforeAll(async () => {
     await initDB();
     UserRepository.addUser({ id: 'default', name: 'defaultUser' });
