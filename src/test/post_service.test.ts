@@ -52,4 +52,29 @@ describe('PostService', () => {
     expect(result[0].title).toBe('title1');
     expect(emptyResult).toEqual([]);
   });
+
+  test('제목, 내용을 받아 글을 수정한다', async () => {
+    // given
+    const originPostData = {
+      userId: 'user',
+      title: 'title1',
+      content: 'content1',
+    };
+
+    const post = await PostRepository.addPost(originPostData);
+
+    // when
+    const updatePostData = {
+      id: post.id,
+      title: 'title2',
+      userId: 'user',
+    };
+
+    const result = await PostService.updatePost(updatePostData);
+    expect(result).not.toBeNull();
+    expect(result.title).toBe(updatePostData.title);
+    expect(result.content).toBe(originPostData.content);
+    expect(result.userId).toBe(originPostData.userId);
+    expect(result.id).toBe(updatePostData.id);
+  });
 });

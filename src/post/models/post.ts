@@ -15,6 +15,10 @@ type PostCreationAttributes = Optional<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
+type PostUpdateAttributes = Partial<
+  Omit<PostAttributes, 'createdAt' | 'updatedAt'>
+> & { userId: string; id: number };
+
 class Post extends Model<PostAttributes, PostCreationAttributes> {
   declare id: number;
   declare title: string;
@@ -60,4 +64,4 @@ Post.init(
 );
 
 export { Post };
-export { PostAttributes, PostCreationAttributes };
+export { PostAttributes, PostCreationAttributes, PostUpdateAttributes };
