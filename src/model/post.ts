@@ -1,7 +1,7 @@
 import { sequelize } from '../config/db';
 import { DataTypes } from 'sequelize';
 
-type PostColumns = {
+type PostAttributes = {
   id: number;
   title: string;
   content: string;
@@ -28,7 +28,7 @@ const Post = sequelize.define('Post', {
   },
 });
 
-async function addPost({ title, content, userId }: PostColumns) {
+async function addPost({ title, content, userId }: PostAttributes) {
   return Post.create({ title, content, userId });
 }
 
