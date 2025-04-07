@@ -1,6 +1,7 @@
 import PostService from '../post/services/post_service';
+import PostRepository from '../post/repositories/post_repository';
 import { initDB } from '../config/db';
-import { beforeAll } from '@jest/globals';
+import { beforeAll, expect } from '@jest/globals';
 
 describe('PostService', () => {
   beforeAll(async () => {
@@ -20,16 +21,20 @@ describe('PostService', () => {
     expect(result.title).toBe(title);
   });
 
-  // test('ID를 받아 유저 정보를 조회한다.', async () => {
-  //   const id = 'default';
-  //   const result = await UserService.getUser(id);
-  //   expect(result).not.toBeNull();
-  //   expect(result!.id).toBe(id);
-  // });
-  //
-  // test('존재하지 않는 유저로 접근하면 null을 반환한다.', async () => {
-  //   const id = 'noUser';
-  //   const result = await UserService.getUser(id);
-  //   expect(result).toBeNull();
-  // });
+  test('글 ID를 받아 정보를 조회한다.', async () => {
+    //given
+    const id = 1;
+    const noId = 999;
+    const userId = 'user';
+    const title = 'testTitle';
+    const content = 'testContent';
+    PostRepository.addPost({ title, content, userId });
+
+    // when
+    const result = await PostService.getPost(id);
+    const emptyResult = await PostService.getPost(noId);
+    expect(result).not.toBeNull();
+    expect(result!.title).toBe(title);
+    expect(emptyResult).toBeNull();
+  });
 });
