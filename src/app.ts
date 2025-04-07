@@ -7,7 +7,7 @@ import {
   addPost,
   getAllPosts,
   getAllPostsByUserId,
-} from './model/post';
+} from './post/models/post';
 import {
   addFollow,
   getFollowers,
