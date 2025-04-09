@@ -5,12 +5,14 @@ import UserService from '../services/user_service';
 
 const router = Router();
 
+// 유저 추가
 router.post('/', async (req, res) => {
   const { userId, name } = req.body;
   const user = await UserService.join({ id: userId, name });
   return res.json(user);
 });
 
+// 특정 유저 정보 반환
 router.get('/:userId', async (req, res) => {
   const userId = req.params.userId;
   const user = await UserService.getUser(userId);

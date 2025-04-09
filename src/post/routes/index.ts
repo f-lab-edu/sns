@@ -5,11 +5,13 @@ import PostService from '../services/post_service';
 
 const router = Router();
 
+// 모든 게시글을 반환
 router.get('/', async (req, res) => {
   const posts = await PostService.getAllPosts();
   return res.json(posts);
 });
 
+// 특정 게시글을 반환
 router.get('/:postId', async (req, res) => {
   const postId = req.params.postId;
   const post = await PostService.getPost(postId);
@@ -17,6 +19,7 @@ router.get('/:postId', async (req, res) => {
   return res.json(post);
 });
 
+// 새로운 게시글을 추가
 router.post('/', async (req, res) => {
   const { title, content, userId } = req.body;
   const post = await PostService.addPost({ title, content, userId });
