@@ -9,6 +9,7 @@ import { connectDB, syncDB } from './config/db';
 
 import userRouter from './users/routes';
 import postRouter from './post/routes';
+import followRouter from './follow/routes';
 
 const app = express();
 const port = 3333;
@@ -28,28 +29,7 @@ app.listen(port, () => {
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
-
-// follow
-app.post('/follow/:targetId', async (req, res) => {
-  const targetId = req.params.targetId;
-  const userId = req.body.userId;
-  const follow = await FollowService.addFollow({ userId, targetId });
-  return res.json(follow);
-});
-
-// user의 팔로워 목록 반환
-app.get('/follow/:userId/followers', async (req, res) => {
-  const userId = req.params.userId;
-  const followers = await FollowService.getFollowers(userId);
-  return res.json(followers);
-});
-
-// user가 팔로잉하는 목록 반환
-app.get('/follow/:userId/followings', (req, res) => {
-  const userId = req.params.userId;
-  const followings = FollowService.getFollowings(userId);
-  return res.json(followings);
-});
+app.use('/follow', followRouter);
 
 // TODO 뉴스피드 기능 작성
 // newsfeed
