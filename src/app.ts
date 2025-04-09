@@ -7,7 +7,7 @@ import {
   addFollow,
   getFollowers,
   getFollowings,
-} from './follows/models/follow';
+} from './follow/models/follow';
 import { connectDB, syncDB } from './config/db';
 import {
   addPost,

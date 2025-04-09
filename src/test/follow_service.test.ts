@@ -1,7 +1,7 @@
 import { beforeAll } from '@jest/globals';
 import { initDB } from '../config/db';
-import FollowService from '../follows/services/follow_service';
-import FollowRepository from '../follows/repositories/follow_repository';
+import FollowService from '../follow/services/follow_service';
+import FollowRepository from '../follow/repositories/follow_repository';
 
 describe('FollowService', () => {
   beforeAll(async () => {
@@ -24,9 +24,7 @@ describe('FollowService', () => {
     // given
     const userId = 'default';
     const targetId = 'target';
-
     FollowRepository.addFollow({ userId, targetId });
-
     // when
     const result = await FollowService.getFollowings(userId);
     const emptyResult = await FollowService.getFollowings(targetId);
