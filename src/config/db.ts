@@ -29,4 +29,9 @@ async function syncDB() {
   }
 }
 
-export { sequelize, connectDB, syncDB };
+async function initDB() {
+  await connectDB();
+  await syncDB(); // 개발환경에서만 사용
+}
+
+export { sequelize, connectDB, syncDB, initDB };
