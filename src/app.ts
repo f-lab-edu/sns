@@ -10,6 +10,7 @@ import { connectDB, syncDB } from './config/db';
 import userRouter from './users/routes';
 import postRouter from './post/routes';
 import followRouter from './follow/routes';
+import newsfeedRouter from './newsfeed/routes';
 
 const app = express();
 const port = 3333;
@@ -30,18 +31,7 @@ app.use(express.json());
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
 app.use('/follow', followRouter);
-
-// TODO 뉴스피드 기능 작성
-// newsfeed
-// app.get('/newsfeed/newsfeed?search={search}&page_size={page_size}&page={page}', (req, res) => {
-//     return Partial<Post>;
-// })
-
-// TODO: 나중에 헤더에 토큰넣으면 url 수정
-app.get('/newsfeed/:userId', async (req, res) => {
-  const newfeed = await NewsfeedService.getNewsfeedByUser(req.params.userId);
-  return res.json(newfeed);
-});
+app.use('/newsfeed', newsfeedRouter);
 
 async function initDB() {
   await connectDB();
