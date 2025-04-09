@@ -58,7 +58,7 @@ Post.init(
   },
   {
     sequelize,
-    modelName: 'User',
+    modelName: 'Post',
     timestamps: true,
   },
 );
