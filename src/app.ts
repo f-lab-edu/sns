@@ -8,6 +8,7 @@ import NewsfeedService from './newsfeed/services/newsfeed_service';
 import { connectDB, syncDB } from './config/db';
 
 import userRouter from './users/routes';
+import postRouter from './post/routes';
 
 const app = express();
 const port = 3333;
@@ -26,6 +27,7 @@ app.listen(port, () => {
 
 app.use(express.json());
 app.use('/users', userRouter);
+app.use('/posts', postRouter);
 
 // follow
 app.post('/follow/:targetId', async (req, res) => {
@@ -47,25 +49,6 @@ app.get('/follow/:userId/followings', (req, res) => {
   const userId = req.params.userId;
   const followings = FollowService.getFollowings(userId);
   return res.json(followings);
-});
-
-// post
-app.get('/posts/:postId', async (req, res) => {
-  const postId = req.params.postId;
-  const post = await PostService.getPost(postId);
-
-  return res.json(post);
-});
-
-app.post('/posts', async (req, res) => {
-  const { title, content, userId } = req.body;
-  const post = await PostService.addPost({ title, content, userId });
-  return res.json(post);
-});
-
-app.get('/posts', async (req, res) => {
-  const posts = await PostService.getAllPosts();
-  return res.json(posts);
 });
 
 // TODO 뉴스피드 기능 작성
