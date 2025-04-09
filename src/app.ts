@@ -7,6 +7,8 @@ import FollowService from './follow/services/follow_service';
 import NewsfeedService from './newsfeed/services/newsfeed_service';
 import { connectDB, syncDB } from './config/db';
 
+import userRouter from './users/routes';
+
 const app = express();
 const port = 3333;
 
@@ -23,18 +25,7 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
-
-app.post('/users', async (req, res) => {
-  const { userId, name } = req.body;
-  const user = await UserService.join({ id: userId, name });
-  return res.json(user);
-});
-
-app.get('/users/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  const user = await UserService.getUser(userId);
-  return res.json(user);
-});
+app.use('/users', userRouter);
 
 // follow
 app.post('/follow/:targetId', async (req, res) => {
