@@ -1,5 +1,3 @@
-// import UserService from '../users/services/user_service';
-// import UserRepository from '../users/repositories/user_repository';
 import NewsfeedService from '../newsfeed/services/newsfeed_service';
 import { initDB } from '../config/db';
 import { beforeAll } from '@jest/globals';
@@ -53,24 +51,10 @@ describe('NewsfeedService', () => {
   });
 
 
-//   test('유저ID를 받아 해당 유저의 뉴스피드를 반환한다.', async () => {
-//     const postData = {
-//         userId: 'follow1',
-//         content: 'content1',
-//         title: 'title1',
-//     }
-
-//     const postData2 = {
-//         userId: 'follow1',
-//         content: 'content2',
-//         title: 'title2',
-//     }
-
-//     const userId = '123';
-
-//     // const name = 'testUser';
-//     const result = await NewsfeedService.getNewsfeedByUser(userId);
-//     expect(result.length).toBe(2);
-//   });
+  test('유저ID를 받아 해당 유저의 뉴스피드를 반환한다.', async () => {
+    const userId = 'a';
+    const result = await NewsfeedService.getNewsfeedByUser(userId);
+    expect(result.length).toBe(2);
+  });
 
 });
