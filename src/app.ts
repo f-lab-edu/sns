@@ -24,11 +24,15 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
-app.use('/users', userRouter);
-app.use('/posts', postRouter);
-app.use('/follow', followRouter);
-app.use('/newsfeed', newsfeedRouter);
-app.use('/auth', authRouter);
+
+app.use('/api/auth', authRouter);
+
+const apiRouter = express.Router();
+app.use('/api', apiRouter);
+apiRouter.use('/users', userRouter);
+apiRouter.use('/posts', postRouter);
+apiRouter.use('/follow', followRouter);
+apiRouter.use('/newsfeed', newsfeedRouter);
 
 async function initDB() {
   await connectDB();
