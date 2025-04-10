@@ -67,12 +67,12 @@ async function validateSessionMiddleware(req, res, next) {
   }
 }
 
-apiRouter.use('/users', userRouter);
 apiRouter.use('/posts', postRouter);
 apiRouter.use('/follow', followRouter);
 apiRouter.use('/newsfeed', newsfeedRouter);
 
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 app.use('/api', apiRouter);
 
 async function initDB() {
