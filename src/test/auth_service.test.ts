@@ -2,12 +2,10 @@ import AuthService from '../auth/services/auth_service';
 import { initDB } from '../config/db';
 import { beforeAll } from '@jest/globals';
 import { validate as isUUID } from 'uuid';
-import UserService from '../users/services/user_service';
 
 describe('AuthService', () => {
   beforeAll(async () => {
     await initDB();
-    // UserRepository.addUser({ id: 'default', name: 'defaultUser' });
   });
 
   afterEach(() => {
@@ -22,11 +20,10 @@ describe('AuthService', () => {
 
   test('ID를 받아 해당하는 세션을 삭제한다.', async () => {
     //given
-    const id = '123';
+    const id = '456';
     await AuthService.createSession(id);
     //when
     const result = await AuthService.destroySession(id);
-
     //then
     expect(result).toBe(1);
   });
