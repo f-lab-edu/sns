@@ -2,6 +2,7 @@ import AuthService from '../auth/services/auth_service';
 import { initDB } from '../config/db';
 import { beforeAll } from '@jest/globals';
 import { validate as isUUID } from 'uuid';
+import UserService from '../users/services/user_service';
 
 describe('AuthService', () => {
   beforeAll(async () => {
@@ -17,5 +18,16 @@ describe('AuthService', () => {
     const id = '123';
     const result = await AuthService.createSession(id);
     expect(isUUID(result.id)).toBe(true);
+  });
+
+  test('ID를 받아 해당하는 세션을 삭제한다.', async () => {
+    //given
+    const id = '123';
+    await AuthService.createSession(id);
+    //when
+    const result = await AuthService.destroySession(id);
+
+    //then
+    expect(result).toBe(1);
   });
 });
