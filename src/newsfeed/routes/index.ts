@@ -11,8 +11,8 @@ const router = Router();
 // })
 
 // 뉴스피드 목록 반환
-router.get('/:userId', async (req, res) => {
-  const newfeed = await NewsfeedService.getNewsfeedByUser(req.params.userId);
+router.get('/', async (req, res) => {
+  const newfeed = await NewsfeedService.getNewsfeedByUser(req.userId);
   return res.json(newfeed);
 });
 
