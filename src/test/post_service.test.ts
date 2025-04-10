@@ -40,7 +40,7 @@ describe('PostService', () => {
 
   test('유저ID를 받아 해당 유저가 작성한 모든 글을 조회한다', async () => {
     // given
-    const userId = 'user';
+    const userId = 'user123';
     PostRepository.addPost({ title: 'title1', content: 'content1', userId });
     PostRepository.addPost({ title: 'title2', content: 'content2', userId });
     PostRepository.addPost({ title: 'title3', content: 'content3', userId });

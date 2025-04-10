@@ -71,9 +71,9 @@ apiRouter.use('/posts', postRouter);
 apiRouter.use('/follow', followRouter);
 apiRouter.use('/newsfeed', newsfeedRouter);
 
-app.use('/api/auth', authRouter);
-app.use('/api/users', userRouter);
-app.use('/api', apiRouter);
+app.use('/api/auth', authRouter); // 세션 검증 없음
+app.use('/api/users', userRouter); // 세션 검증 없음
+app.use('/api', apiRouter); // 세션 검증 있음
 
 async function initDB() {
   await connectDB();
