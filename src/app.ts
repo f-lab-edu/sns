@@ -7,8 +7,7 @@ import userRouter from './users/routes';
 import postRouter from './post/routes';
 import followRouter from './follow/routes';
 import newsfeedRouter from './newsfeed/routes';
-import { Session } from './auth/models/session';
-import AuthService from './auth/services/auth_service';
+import authRouter from './auth/routes';
 
 const app = express();
 const port = 3333;
@@ -29,18 +28,7 @@ app.use('/users', userRouter);
 app.use('/posts', postRouter);
 app.use('/follow', followRouter);
 app.use('/newsfeed', newsfeedRouter);
-
-app.post('/auth/login', async (req, res) => {
-  const { id } = req.body;
-  const session = await AuthService.createSession(id);
-  return res.json(session);
-});
-
-app.post('/auth/logout', async (req, res) => {
-  const { id } = req.body;
-  const sessionCount = await AuthService.destroySession(id);
-  return res.json(sessionCount);
-});
+app.use('/auth', authRouter);
 
 async function initDB() {
   await connectDB();
