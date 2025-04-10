@@ -1,17 +1,14 @@
-import { Session } from '../models/session';
+import SessionRepository from '../repositories/session_repository';
 
 async function createSession(userId: string) {
-  const result = await Session.create({
+  return SessionRepository.addSession({
     userId,
     expiresInMs: 15 * 60 * 1000, // 15분
   });
-
-  return result;
 }
 
 async function destroySession(userId: string) {
-  const result = await Session.destroy({ where: { userId: userId } });
-  return result;
+  return SessionRepository.deleteSession(userId);
 }
 
 export default {

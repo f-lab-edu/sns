@@ -58,4 +58,4 @@ Session.init(
 );
 
 export { Session };
-export type { SessionAttributes };
+export type { SessionAttributes, SessionCreationAttributes };
