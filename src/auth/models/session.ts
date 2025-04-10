@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db';
-import { v4 as uuidv4 } from 'uuid';
 
 type UUID = string;
 
@@ -28,7 +27,8 @@ class Session extends Model<SessionAttributes, SessionCreationAttributes> {
 Session.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
       unique: true,
@@ -54,11 +54,6 @@ Session.init(
     sequelize,
     modelName: 'Session',
     timestamps: true,
-    hooks: {
-      beforeCreate: (session) => {
-        session.id = uuidv4();
-      },
-    },
   },
 );
 
