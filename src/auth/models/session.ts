@@ -1,8 +1,11 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db';
+import { v4 as uuidv4 } from 'uuid';
+
+type UUID = string;
 
 type SessionAttributes = {
-  id: string; // UUID
+  id: UUID;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -11,11 +14,11 @@ type SessionAttributes = {
 
 type SessionCreationAttributes = Optional<
   SessionAttributes,
-  'createdAt' | 'updatedAt'
+  'id' | 'createdAt' | 'updatedAt'
 >;
 
 class Session extends Model<SessionAttributes, SessionCreationAttributes> {
-  declare id: string;
+  declare id: UUID;
   declare userId: string;
   declare createdAt: Date;
   declare updatedAt: Date;
@@ -25,7 +28,7 @@ class Session extends Model<SessionAttributes, SessionCreationAttributes> {
 Session.init(
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
       unique: true,
@@ -51,6 +54,11 @@ Session.init(
     sequelize,
     modelName: 'Session',
     timestamps: true,
+    hooks: {
+      beforeCreate: (session) => {
+        session.id = uuidv4();
+      },
+    },
   },
 );
 
