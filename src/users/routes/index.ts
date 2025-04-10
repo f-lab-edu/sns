@@ -5,8 +5,8 @@ import UserService from '../services/user_service';
 
 const router = Router();
 
-// 유저 추가
-router.post('/', async (req, res) => {
+// 회원가입
+router.post('/join', async (req, res) => {
   const { userId, name } = req.body;
   const user = await UserService.join({ id: userId, name });
   return res.json(user);

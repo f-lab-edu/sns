@@ -21,7 +21,8 @@ router.get('/:postId', async (req, res) => {
 
 // 새로운 게시글을 추가
 router.post('/', async (req, res) => {
-  const { title, content, userId } = req.body;
+  const { title, content } = req.body;
+  const { userId } = req;
   const post = await PostService.addPost({ title, content, userId });
   return res.json(post);
 });

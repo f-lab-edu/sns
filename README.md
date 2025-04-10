@@ -29,9 +29,13 @@ sqlite3 라이브러리 오류 해결법 [출처 링크](https://github.com/TryG
 
 ## 구현 기능
 
+- 세션 토큰
+
+## 엔드포인트
+
 유저 (/users)
 
-- 유저 추가 POST /
+- 유저 추가 POST /join
 - 특정 유저 정보 반환 GET /:userId
 
 포스트 (/post)
