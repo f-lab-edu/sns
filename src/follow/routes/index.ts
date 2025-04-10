@@ -8,7 +8,7 @@ const router = Router();
 // 특정 사용자를 팔로우
 router.post('/:targetId', async (req, res) => {
   const targetId = req.params.targetId;
-  const userId = req.body.userId;
+  const { userId } = req;
   const follow = await FollowService.addFollow({ userId, targetId });
   return res.json(follow);
 });
