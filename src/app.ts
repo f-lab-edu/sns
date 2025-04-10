@@ -7,6 +7,7 @@ import userRouter from './users/routes';
 import postRouter from './post/routes';
 import followRouter from './follow/routes';
 import newsfeedRouter from './newsfeed/routes';
+import { Session } from './auth/models/session';
 
 const app = express();
 const port = 3333;
@@ -27,6 +28,24 @@ app.use('/users', userRouter);
 app.use('/posts', postRouter);
 app.use('/follow', followRouter);
 app.use('/newsfeed', newsfeedRouter);
+
+app.post('/auth/login', async (req, res) => {
+  const { id } = req.body;
+  // 세션 만들어서 DB에 저장
+  const session = await Session.create({
+    userId: id,
+    expiresInMs: 15 * 60 * 1000, // 15분
+  });
+
+  console.log(session);
+  return res.json(session);
+});
+
+app.post('/auth/logout', async (req, res) => {
+  const { id } = req.body;
+  const session = await Session.destroy({ where: { userId: id } });
+  return res.json(session);
+});
 
 async function initDB() {
   await connectDB();
