@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { connectDB, syncDB } from './config/db';
 
 import userRouter from './users/routes';
@@ -24,8 +25,7 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
-
-app.use('/api/auth', authRouter);
+app.use(cookieParser());
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);

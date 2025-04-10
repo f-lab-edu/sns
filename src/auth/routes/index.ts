@@ -8,6 +8,12 @@ const router = Router();
 router.post('/login', async (req, res) => {
   const { id } = req.body;
   const result = await AuthService.createSession(id);
+  res.cookie('sessionId', result.id, {
+    httpOnly: true,
+    secure: false, // dev mode에서는 false
+    maxAge: result.expiresInMs,
+  });
+
   return res.json(result);
 });
 
