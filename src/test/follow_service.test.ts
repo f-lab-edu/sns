@@ -20,6 +20,16 @@ describe('FollowService', () => {
     expect(result.targetId).toBe(targetId);
   });
 
+  test('이미 팔로우한 ID라면 에러를 반환한다.', async () => {
+    const userId = 'target';
+    const targetId = 'user';
+    await FollowService.addFollow({ userId, targetId });
+
+    await expect(FollowService.addFollow({ userId, targetId })).rejects.toThrow(
+      Error,
+    );
+  });
+
   test('유저 ID를 받아 유저가 팔로잉하는 목록을 조회한다.', async () => {
     // given
     const userId = 'default';
