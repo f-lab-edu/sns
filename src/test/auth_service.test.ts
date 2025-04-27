@@ -7,7 +7,7 @@ import UserService from '../users/services/user_service';
 describe('AuthService', () => {
   beforeAll(async () => {
     await initDB();
-    UserService.join({ id: 'defaultId', name: 'defaultName' });
+    await UserService.join({ id: 'defaultId', name: 'defaultName' });
   });
 
   afterEach(() => {
@@ -24,6 +24,7 @@ describe('AuthService', () => {
   test('이미 로그인한 유저라면 존재하는 세션을 반환한다.', async () => {
     // given
     const id = 'duplicateId';
+    await UserService.join({ id, name: 'duplicatedName' });
     const prevResult = await AuthService.login(id);
     console.log(prevResult);
 
