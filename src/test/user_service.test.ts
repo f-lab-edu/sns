@@ -2,6 +2,7 @@ import UserService from '../users/services/user_service';
 import UserRepository from '../users/repositories/user_repository';
 import { initDB } from '../config/db';
 import { beforeAll } from '@jest/globals';
+import user_service from '../users/services/user_service';
 
 describe('UserService', () => {
   beforeAll(async () => {
@@ -31,5 +32,14 @@ describe('UserService', () => {
     const id = 'noUser';
     const result = await UserService.getUser(id);
     expect(result).toBeNull();
+  });
+
+  test('이미 존재하는 ID로 가입을 시도하면 에러를 반환한다.', async () => {
+    const id = 'user';
+    const name = 'name';
+    await UserService.join({ id, name });
+    await expect(UserService.join({ id, name })).rejects.toThrowError(
+      'USER_ALREADY_EXISTS',
+    );
   });
 });

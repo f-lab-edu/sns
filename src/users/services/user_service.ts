@@ -5,6 +5,9 @@ async function join({
   id,
   name,
 }: UserCreationAttributes): Promise<InstanceType<typeof User>> {
+  if (await getUser(id)) {
+    throw new Error('USER_ALREADY_EXISTS');
+  }
   return UserRepository.addUser({ id, name });
 }
 
