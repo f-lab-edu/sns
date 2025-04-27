@@ -46,6 +46,11 @@ describe('AuthService', () => {
     //when
     const result = await AuthService.destroySession(id);
     //then
-    expect(result).toBeGreaterThanOrEqual(1);
+    await expect(result).toBeGreaterThanOrEqual(1);
+  });
+
+  test('가입하지 않은 ID로 로그인을 시도하면 에러를 반환한다.', async () => {
+    const id = 'notJoinedUser';
+    await expect(AuthService.login(id)).rejects.toThrowError('USER_NOT_FOUND');
   });
 });
