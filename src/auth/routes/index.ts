@@ -7,13 +7,13 @@ const router = Router();
 // @ts-ignore
 router.post('/login', async (req, res) => {
   const { id } = req.body;
-  const result = await AuthService.createSession(id);
+  const result = await AuthService.login(id);
   res.cookie('sessionId', result.id, {
     httpOnly: true,
     secure: false, // dev mode에서는 false
     maxAge: result.expiresInMs,
   });
-
+  
   return res.json(result);
 });
 
