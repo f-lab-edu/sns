@@ -1,5 +1,6 @@
 import SessionRepository from '../repositories/session_repository';
 import { Session } from '../models/session';
+import UserService from '../../users/services/user_service';
 
 async function findOrCreateSession(userId: string) {
   return SessionRepository.findOrCreate({
@@ -24,6 +25,10 @@ async function getSession(sessionId: string): Promise<Session | null> {
 }
 
 async function login(userId: string) {
+  if (!(await UserService.getUser(userId))) {
+    throw new Error('USER_NOT_FOUND');
+  }
+
   const [result, _created] = await findOrCreateSession(userId);
   return result;
 }
