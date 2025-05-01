@@ -77,4 +77,9 @@ describe('PostService', () => {
     expect(result.userId).toBe(originPostData.userId);
     expect(result.id).toBe(updatePostData.id);
   });
+
+  test('사진을 업로드할 url을 발급받는다', async () => {
+    const result = await PostService.getPresignedUrl();
+    expect(result).not.toBeNull();
+  });
 });
