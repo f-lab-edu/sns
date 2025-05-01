@@ -1,50 +1,43 @@
 import { sequelize } from '../../config/db';
 import { DataTypes, Model, Optional } from 'sequelize';
 
-type PostAttributes = {
+type PostImageAttributes = {
   id: number;
-  title: string;
-  content: string;
-  userId: string;
+  url: string;
+  postId: number; // post fk. NOTE - 나중에 임시저장(이미지는 업로드 성공, 게시글은 실패) 상태를 추가한다면 null도 허용할 수 있음
   createdAt: Date;
   updatedAt: Date;
 };
 
-type PostCreationAttributes = Optional<
-  PostAttributes,
+type PostImageCreationAttributes = Optional<
+  PostImageAttributes,
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-type PostUpdateAttributes = Partial<
-  Omit<PostAttributes, 'createdAt' | 'updatedAt'>
-> & { userId: string; id: number };
-
-class Post extends Model<PostAttributes, PostCreationAttributes> {
+class PostImage extends Model<
+  PostImageAttributes,
+  PostImageCreationAttributes
+> {
   declare id: number;
-  declare title: string;
-  declare content: string;
-  declare userId: string;
+  declare url: string;
+  declare postId: string;
   declare createdAt: Date;
   declare updatedAt: Date;
 }
 
-Post.init(
+PostImage.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    title: {
+    url: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    content: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    userId: {
-      type: DataTypes.STRING,
+    postId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     createdAt: {
@@ -58,10 +51,10 @@ Post.init(
   },
   {
     sequelize,
-    modelName: 'Post',
+    modelName: 'PostImage',
     timestamps: true,
   },
 );
 
-export { Post };
-export { PostAttributes, PostCreationAttributes, PostUpdateAttributes };
+export { PostImage };
+export { PostImageAttributes, PostImageCreationAttributes };
