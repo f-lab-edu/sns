@@ -21,9 +21,14 @@ async function updatePost(postAttributes: PostUpdateAttributes): Promise<Post> {
   return PostRepository.updatePost(postAttributes);
 }
 
+async function getPresignedUrl() {
+  return null;
+}
+
 export default {
   addPost,
   getPost,
   getAllPostsByUser,
   updatePost,
+  getPresignedUrl,
 };

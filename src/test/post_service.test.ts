@@ -77,4 +77,26 @@ describe('PostService', () => {
     expect(result.userId).toBe(originPostData.userId);
     expect(result.id).toBe(updatePostData.id);
   });
+
+  test('사진을 업로드할 url을 발급받는다', async () => {
+    const result = await PostService.getPresignedUrl();
+    expect(result).not.toBeNull();
+  });
+
+  test('사진 링크를 첨부하여 게시글을 작성한다', async () => {
+    // given
+    const postData = {
+      userId: 'user',
+      title: 'title1',
+      content: 'content1',
+    };
+    const imageUrl = await PostService.getPresignedUrl();
+    const result = await PostService.addPost({
+      ...postData,
+      images: imageUrl ? [imageUrl] : [],
+    });
+
+    expect(result).not.toBeNull();
+    expect(result.images?.length).toBe(1);
+  });
 });
