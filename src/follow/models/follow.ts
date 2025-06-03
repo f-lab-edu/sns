@@ -54,6 +54,12 @@ Follow.init(
     sequelize,
     modelName: 'Follow',
     timestamps: true,
+    indexes: [
+      {
+        fields: ['userId', 'targetId'],
+        unique: true,
+      },
+    ],
   },
 );
 

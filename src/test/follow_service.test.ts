@@ -2,14 +2,15 @@ import { beforeAll } from '@jest/globals';
 import { initDB } from '../config/db';
 import FollowService from '../follow/services/follow_service';
 import FollowRepository from '../follow/repositories/follow_repository';
+import { Follow } from '../follow/models/follow';
 
 describe('FollowService', () => {
   beforeAll(async () => {
     await initDB();
   });
 
-  afterEach(() => {
-    // jest.clearAllMocks(); // 각 테스트 후 모킹을 초기화합니다.
+  afterEach(async () => {
+    await Follow.destroy({ where: {} }); // 테이블의 모든 데이터 삭제
   });
 
   test('유저 ID와 타겟 ID를 받아 팔로우를 건다.', async () => {
@@ -18,6 +19,16 @@ describe('FollowService', () => {
     const result = await FollowService.addFollow({ userId, targetId });
     expect(result.userId).toBe(userId);
     expect(result.targetId).toBe(targetId);
+  });
+
+  test('이미 팔로우한 ID라면 에러를 반환한다.', async () => {
+    const userId = 'target';
+    const targetId = 'user';
+    await FollowService.addFollow({ userId, targetId });
+
+    await expect(FollowService.addFollow({ userId, targetId })).rejects.toThrow(
+      Error,
+    );
   });
 
   test('유저 ID를 받아 유저가 팔로잉하는 목록을 조회한다.', async () => {

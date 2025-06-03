@@ -15,8 +15,24 @@ async function getSession(sessionId: string): Promise<Session | null> {
   return Session.findByPk(sessionId);
 }
 
+async function getSessionsByUser(userId: string) {
+  return Session.findAll({ where: { userId: userId } });
+}
+
+async function findOrCreate({
+  userId,
+  expiresInMs,
+}: SessionCreationAttributes): Promise<[Session, boolean]> {
+  return Session.findOrCreate({
+    where: { userId: userId },
+    defaults: { userId, expiresInMs },
+  });
+}
+
 export default {
   addSession,
   deleteSession,
   getSession,
+  findOrCreate,
+  getSessionsByUser,
 };
