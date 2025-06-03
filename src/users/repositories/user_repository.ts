@@ -1,14 +1,22 @@
-import { User, UserCreationAttributes } from '../models/user'
+import { User, UserCreationAttributes } from '../models/user';
+import { hash } from 'crypto';
 
-async function addUser({ id, name }: UserCreationAttributes) {
+async function addUser({
+  email,
+  username,
+  hashedPw,
+  discriminator,
+}: UserCreationAttributes) {
   return User.create({
-    id,
-    name,
+    email,
+    username,
+    hashedPw,
+    discriminator,
   });
 }
 
-async function getUser(id: string) {
-  return User.findByPk(id);
+async function getUser(uuid: string) {
+  return User.findByPk(uuid);
 }
 
 export default { addUser, getUser } as UserRepository;

@@ -8,8 +8,6 @@ type UserAttributes = {
   username: string;
   discriminator: string;
   slug: string;
-  id: string;
-  name: string;
   role: 'REGULAR' | 'PREMIUM'; // enum
   createdAt: Date;
   updatedAt: Date;
@@ -17,12 +15,11 @@ type UserAttributes = {
 
 type UserCreationAttributes = Optional<
   UserAttributes,
-  'createdAt' | 'updatedAt' | 'uuid' | 'slug'
+  'createdAt' | 'updatedAt' | 'uuid' | 'slug' | 'role'
 >;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
-  declare id: string;
-  declare name: string;
+  declare uuid: string;
   declare username: string;
   declare email: string;
   declare hashedPw: string;
@@ -80,15 +77,6 @@ User.init(
       type: DataTypes.ENUM('REGULAR', 'PREMIUM'),
       allowNull: false,
       defaultValue: 'REGULAR',
-    },
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: false,
-      allowNull: false,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,

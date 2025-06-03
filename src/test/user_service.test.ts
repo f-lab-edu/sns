@@ -7,25 +7,35 @@ import user_service from '../users/services/user_service';
 describe('UserService', () => {
   beforeAll(async () => {
     await initDB();
-    UserRepository.addUser({ id: 'default', name: 'defaultUser' });
+    UserRepository.addUser({
+      email: 'default@asdf.com',
+      username: 'defaultUser',
+      discriminator: '1231',
+      hashedPw: '123j12lk3j',
+    });
   });
 
   afterEach(() => {
     // jest.clearAllMocks(); // 각 테스트 후 모킹을 초기화합니다.
   });
 
-  test('ID와 이름을 받아 유저를 생성한다.', async () => {
+  test('email, 이름, 비밀번호를 받아 유저를 생성한다.', async () => {
     const id = '123';
     const name = 'testUser';
-    const result = await UserService.join({ id, name });
-    expect(result.id).toBe(id);
+    const result = await UserService.join({
+      email: id,
+      username: name,
+      hashedPw: '123123',
+      discriminator: '1231',
+    });
+    expect(result.uuid).toBe(id);
   });
 
-  test('ID를 받아 유저 정보를 조회한다.', async () => {
+  test('uuid를 받아 유저 정보를 조회한다.', async () => {
     const id = 'default';
     const result = await UserService.getUser(id);
     expect(result).not.toBeNull();
-    expect(result!.id).toBe(id);
+    expect(result!.uuid).toBe(id);
   });
 
   test('존재하지 않는 유저로 접근하면 null을 반환한다.', async () => {
@@ -37,9 +47,19 @@ describe('UserService', () => {
   test('이미 존재하는 ID로 가입을 시도하면 에러를 반환한다.', async () => {
     const id = 'user';
     const name = 'name';
-    await UserService.join({ id, name });
-    await expect(UserService.join({ id, name })).rejects.toThrowError(
-      'USER_ALREADY_EXISTS',
-    );
+    await UserService.join({
+      email: id,
+      username: name,
+      hashedPw: '123',
+      discriminator: '1231',
+    });
+    await expect(
+      UserService.join({
+        email: id,
+        username: name,
+        hashedPw: '12312',
+        discriminator: '1231',
+      }),
+    ).rejects.toThrowError('USER_ALREADY_EXISTS');
   });
 });

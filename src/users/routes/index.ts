@@ -8,7 +8,7 @@ const router = Router();
 // 회원가입
 router.post('/join', async (req, res) => {
   const { userId, name } = req.body;
-  const user = await UserService.join({ id: userId, name });
+  const user = await UserService.join({ email: userId, name });
   return res.json(user);
 });
 
